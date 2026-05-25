@@ -14,19 +14,19 @@ export default function LoopBranchNode({ data }: IfElseNodeProps) {
     "M 176 0 C 176 12, 176 20, 176 26 C 176 34, 182 40, 194 40 L 270 40 C 286 40, 294 46, 294 58 L 294 64";
 
   return (
-    <div className="relative w-190">
+    <div className="relative w-190 pt-8">
       <Handle
         type="target"
         position={Position.Top}
         style={{
           ...nodeHandleStyle,
           left: "50%",
-          top: -6,
+          top: 26,
         }}
       />
 
-      <div className="absolute inset-x-4 top-0 h-full rounded-3xl border border-indigo-100/80 bg-indigo-50/30" />
-      <div className="absolute inset-x-2 top-3 h-full rounded-3xl border border-indigo-100/80 bg-indigo-50/40" />
+      <div className="absolute left-1/2 top-0 h-12 w-[78%] -translate-x-1/2 rounded-t-[14px] rounded-b-[10px] border border-indigo-300 bg-[#f5f3ff]" />
+      <div className="absolute left-1/2 top-3 h-12 w-[90%] -translate-x-1/2 rounded-t-[14px] rounded-b-[10px] border border-indigo-200 bg-[#f5f3ff]" />
 
       <div className="relative overflow-hidden rounded-[18px] border border-indigo-100 bg-[#f8f7ff] shadow-[0_18px_50px_rgba(119,102,255,0.08)]">
         <div className="flex items-center gap-3 border-b border-indigo-100 bg-[#f5f3ff] px-6 py-4">
