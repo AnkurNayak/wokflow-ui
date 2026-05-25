@@ -16,3 +16,31 @@ body {
   height: 100%;
   display: flex;
 }
+
+@keyframes workflow-flow {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 0 24px;
+  }
+}
+
+.workflow-flow-line {
+  background-image:
+    linear-gradient(#7c8cff, #7c8cff),
+    linear-gradient(90deg, #7c8cff 0 50%, transparent 50% 100%);
+  background-repeat: repeat-y, repeat-x;
+  background-size: 2px 16px, 16px 2px;
+  animation: workflow-flow 1.2s linear infinite;
+}
+
+.workflow-flow-path {
+  stroke: #7c8cff;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 2 9;
+  animation: workflow-flow 1.2s linear infinite;
+}

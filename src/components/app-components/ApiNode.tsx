@@ -17,7 +17,7 @@ export default function ApiNode() {
   );
 
   return (
-    <div className="relative w-115">
+    <div className="relative w-[760px]">
       <Handle type="target" position={Position.Top} style={nodeHandleStyle} />
       <Handle
         type="source"
@@ -25,7 +25,7 @@ export default function ApiNode() {
         style={nodeHandleStyle}
       />
 
-      {/* Error badge — floats to the left */}
+      {/* Error badge*/}
       <div className="absolute top-1/2 -translate-y-1/2 -left-19 flex items-center gap-1.5 bg-red-500 text-white text-[11.5px] font-semibold px-3 py-1 rounded-[7px] z-10 whitespace-nowrap">
         Error <ArrowRightIcon />
       </div>

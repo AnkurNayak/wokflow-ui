@@ -8,7 +8,7 @@ import { PlayIcon } from "../icons/icons";
 
 export default function StartNode() {
   return (
-    <Card className="w-115 shadow-sm border-slate-200 hover:shadow-md transition-shadow">
+    <Card className="w-190 shadow-sm border-slate-200 hover:shadow-md transition-shadow bg-white">
       <Handle
         type="source"
         position={Position.Bottom}

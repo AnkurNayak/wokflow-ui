@@ -6,13 +6,28 @@ import IconBox from "../ui/icon-box";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import Chip from "../ui/chip";
 import { AzureIcon, IterIconSmall } from "../icons/icons";
+import type { IfElseNodeProps } from "@/types/workflow.types";
 
-export default function IfElseNode() {
+export default function IfElseNode({ data }: IfElseNodeProps) {
+  const { activeTab, setActiveTab } = data;
+
   return (
     <div className="w-105">
-      <Handle type="target" position={Position.Top} style={nodeHandleStyle} />
+      <Handle
+        type="target"
+        position={Position.Top}
+        style={{
+          ...nodeHandleStyle,
+          left: 110,
+          top: -6,
+        }}
+      />
 
-      <Tabs defaultValue="A" className="w-full">
+      <Tabs
+        value={activeTab}
+        onValueChange={(v) => setActiveTab(v as "A" | "B")}
+        className="w-full"
+      >
         <TabsList className="h-auto p-0 bg-transparent gap-1 rounded-none mb-0">
           <TabsTrigger
             value="A"
@@ -33,7 +48,7 @@ export default function IfElseNode() {
         {/* Shared body wrapper */}
         <div className="border border-slate-200 rounded-b-lg rounded-tr-lg bg-slate-50/80 p-2.5">
           {/* IF condition row */}
-          <div className="bg-white border border-slate-200 rounded-lg px-3 py-2 flex items-center gap-2 flex-wrap mb-2.5">
+          <div className="bg-white border border-slate-200 rounded-lg px-3 py-2 flex items-center flex-wrap mb-2.5">
             <span className="text-indigo-500 font-bold text-[12.5px]">5</span>
             <span className="text-indigo-500 font-bold text-[12.5px]">If</span>
             <Chip>4</Chip>
@@ -68,7 +83,7 @@ export default function IfElseNode() {
 
           <TabsContent value="B" className="mt-0">
             <p className="text-center text-[12px] text-slate-400 py-2">
-              No actions — user will be skipped
+              No actions - user will be skipped
             </p>
           </TabsContent>
         </div>

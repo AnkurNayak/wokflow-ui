@@ -13,14 +13,26 @@ import "@xyflow/react/dist/style.css";
 
 import { Badge } from "@/components/ui/badge";
 import {
-  initialEdges,
-  initialNodes,
+  getEdges,
+  getNodes,
   nodeTypes,
 } from "./components/app-components/NodeConfig";
+import { useEffect, useState } from "react";
 
 export default function App() {
-  const [nodes, , onNodesChange] = useNodesState<Node>(initialNodes);
-  const [edges, , onEdgesChange] = useEdgesState<Edge>(initialEdges);
+  const [activeTab, setActiveTab] = useState<"A" | "B">("A");
+
+  const [nodes, setNodes, onNodesChange] = useNodesState<Node>(
+    getNodes(activeTab, setActiveTab),
+  );
+  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>(
+    getEdges(activeTab),
+  );
+
+  useEffect(() => {
+    setNodes(getNodes(activeTab, setActiveTab));
+    setEdges(getEdges(activeTab));
+  }, [activeTab]);
 
   return (
     <div className="relative w-screen h-screen bg-slate-100 font-sans">
@@ -50,7 +62,7 @@ export default function App() {
         </Badge>
       </div>
 
-      {/* ── ReactFlow canvas ── */}
+      {/* ReactFlow canvas */}
       <ReactFlow
         nodes={nodes}
         edges={edges}
