@@ -2,10 +2,13 @@ import {
   ReactFlow,
   Background,
   Controls,
+  addEdge,
+  ConnectionMode,
   useNodesState,
   useEdgesState,
   type Node,
   type Edge,
+  type Connection,
   type NodeChange,
   type EdgeChange,
 } from "@xyflow/react";
@@ -16,6 +19,7 @@ import {
   getEdges,
   getNodes,
   nodeTypes,
+  solidEdge,
 } from "./components/app-components/NodeConfig";
 import { useEffect, useState } from "react";
 
@@ -25,14 +29,33 @@ export default function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState<Node>(
     getNodes(activeTab, setActiveTab),
   );
-  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>(
-    getEdges(activeTab),
-  );
+  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>(getEdges("A"));
 
   useEffect(() => {
-    setNodes(getNodes(activeTab, setActiveTab));
-    setEdges(getEdges(activeTab));
-  }, [activeTab]);
+    setNodes((currentNodes) =>
+      currentNodes.map((node) =>
+        node.id === "3"
+          ? {
+              ...node,
+              data: { activeTab, setActiveTab },
+            }
+          : node,
+      ),
+    );
+  }, [activeTab, setNodes]);
+
+  const onConnect = (connection: Connection) => {
+    setEdges((currentEdges) =>
+      addEdge(
+        {
+          ...connection,
+          type: "smoothstep",
+          style: solidEdge,
+        },
+        currentEdges,
+      ),
+    );
+  };
 
   return (
     <div className="relative w-screen h-screen bg-slate-100 font-sans">
@@ -68,11 +91,14 @@ export default function App() {
         edges={edges}
         onNodesChange={onNodesChange as (changes: NodeChange[]) => void}
         onEdgesChange={onEdgesChange as (changes: EdgeChange[]) => void}
+        onConnect={onConnect}
         nodeTypes={nodeTypes}
         fitView
         fitViewOptions={{ padding: 0.28 }}
+        connectionMode={ConnectionMode.Loose}
         nodesDraggable
-        nodesConnectable={false}
+        nodesConnectable
+        edgesReconnectable
         elementsSelectable={false}
         panOnScroll
         zoomOnScroll

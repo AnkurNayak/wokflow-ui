@@ -24,6 +24,8 @@ export function getNodes(
       position: { x: CX, y: 346 },
       data: { activeTab, setActiveTab },
     },
+
+    // { id: "4", type: "transformNode", position: { x: CX, y: 346 }, data: {} },
   ];
 }
 
@@ -43,6 +45,14 @@ export function getEdges(_activeTab: "A" | "B"): Edge[] {
       style: solidEdge,
       type: "smoothstep",
     },
+
+    // {
+    //   id: "e3-4",
+    //   source: "3",
+    //   target: "4",
+    //   style: solidEdge,
+    //   type: "smoothstep",
+    // },
   ];
 }
 
@@ -50,4 +60,5 @@ export const nodeTypes: NodeTypes = {
   start: () => <StartNode />,
   api: () => <ApiNode />,
   loopBranch: (props) => <LoopBranchNode data={props.data} />,
+  // transformNode: () => <CreateUserNode />,
 };

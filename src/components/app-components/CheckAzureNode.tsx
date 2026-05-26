@@ -20,7 +20,7 @@ export default function CheckAzureNode() {
           <AzureIcon />
         </IconBox>
         <span className="text-[13.5px] font-medium text-slate-800 flex-1">
-          Check user in Azure
+          Check user in Azureddd
         </span>
       </CardContent>
     </Card>

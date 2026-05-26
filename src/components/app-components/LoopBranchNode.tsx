@@ -6,12 +6,16 @@ import Chip from "../ui/chip";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { AzureIcon, IterIcon, IterIconSmall } from "../icons/icons";
 import type { IfElseNodeProps } from "@/types/workflow.types";
+import { useState } from "react";
+import CreateUserNode from "./CreateUserNode";
 
 export default function LoopBranchNode({ data }: IfElseNodeProps) {
   const { activeTab, setActiveTab } = data;
   const branchIsCreate = activeTab === "A";
   const curvePath =
     "M 176 0 C 176 12, 176 20, 176 26 C 176 34, 182 40, 194 40 L 270 40 C 286 40, 294 46, 294 58 L 294 64";
+
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="relative w-190 pt-8">
@@ -24,9 +28,37 @@ export default function LoopBranchNode({ data }: IfElseNodeProps) {
           top: 26,
         }}
       />
+      <Handle
+        type="source"
+        position={Position.Bottom}
+        style={nodeHandleStyle}
+      />
 
-      <div className="absolute left-1/2 top-0 h-12 w-[78%] -translate-x-1/2 rounded-t-[14px] rounded-b-[10px] border border-indigo-300 bg-[#f5f3ff]" />
-      <div className="absolute left-1/2 top-3 h-12 w-[90%] -translate-x-1/2 rounded-t-[14px] rounded-b-[10px] border border-indigo-200 bg-[#f5f3ff]" />
+      <svg
+        className="pointer-events-none absolute left-1/2 top-0 h-15 w-[90%] -translate-x-1/2 overflow-visible"
+        viewBox="0 0 100 60"
+        fill="none"
+        aria-hidden="true"
+      >
+        <rect
+          x="11"
+          y="0.5"
+          width="78"
+          height="48"
+          rx="12"
+          fill="#f5f3ff"
+          stroke="#a5b4fc"
+        />
+        <rect
+          x="5"
+          y="12.5"
+          width="90"
+          height="48"
+          rx="12"
+          fill="#f5f3ff"
+          stroke="#c7d2fe"
+        />
+      </svg>
 
       <div className="relative overflow-hidden rounded-[18px] border border-indigo-100 bg-[#f8f7ff] shadow-[0_18px_50px_rgba(119,102,255,0.08)]">
         <div className="flex items-center gap-3 border-b border-indigo-100 bg-[#f5f3ff] px-6 py-4">
@@ -109,7 +141,11 @@ export default function LoopBranchNode({ data }: IfElseNodeProps) {
               <span>{branchIsCreate ? "is empty" : "exists"}</span>
             </div>
 
-            <TabsContent value="A" className="m-0 p-4">
+            <TabsContent
+              value="A"
+              className="m-0 p-4"
+              onClick={() => setIsOpen(!isOpen)}
+            >
               <div className="rounded-2xl border border-slate-200 bg-white px-6 py-7 shadow-[0_1px_0_rgba(15,23,42,0.03)]">
                 <div className="flex items-center gap-4">
                   <StepBadge n={6} />
@@ -139,6 +175,8 @@ export default function LoopBranchNode({ data }: IfElseNodeProps) {
           </div>
         </Tabs>
       </div>
+
+      <CreateUserNode isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
   );
 }
